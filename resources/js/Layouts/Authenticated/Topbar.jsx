@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/inertia-react";
 import { useRef, useState } from "react";
 
 export default function Topbar({ name }) {
@@ -52,12 +53,13 @@ export default function Topbar({ name }) {
                         >
                             Settings
                         </a>
-                        <a
-                            href="sign_in.html"
+                        <Link
+                            href={route("logout")}
+                            method="post"
                             className="transition-all hover:bg-sky-100 p-4"
                         >
                             Sign Out
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
