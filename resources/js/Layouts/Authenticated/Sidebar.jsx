@@ -4,14 +4,14 @@ export default function Sidebar() {
     return (
         <aside className="fixed z-50 w-[300px] h-full">
             <div className="flex flex-col p-[30px] pr-0 border-r border-gray-[#F1F1F1] overflow-y-auto h-full">
-                <Link href={route("prototype.dashboard")}>
+                <Link href={route("user.dashboard.index")}>
                     <img src="/images/moonton.svg" alt="" />
                 </Link>
                 <div className="links flex flex-col mt-[60px] h-full gap-[50px]">
                     <div>
                         <div className="text-gray-1 text-sm mb-4">Menu</div>
                         <Link
-                            href={route("prototype.dashboard")}
+                            href={route("user.dashboard.index")}
                             className="side-link active"
                         >
                             <svg
