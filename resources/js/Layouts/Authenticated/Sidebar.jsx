@@ -1,14 +1,19 @@
+import { Link } from "@inertiajs/inertia-react";
+
 export default function Sidebar() {
     return (
         <aside className="fixed z-50 w-[300px] h-full">
             <div className="flex flex-col p-[30px] pr-0 border-r border-gray-[#F1F1F1] overflow-y-auto h-full">
-                <a href="/">
+                <Link href="/prototype/dashboard">
                     <img src="/images/moonton.svg" alt="" />
-                </a>
+                </Link>
                 <div className="links flex flex-col mt-[60px] h-full gap-[50px]">
                     <div>
                         <div className="text-gray-1 text-sm mb-4">Menu</div>
-                        <a href="/" className="side-link active">
+                        <Link
+                            href="/prototype/dashboard"
+                            className="side-link active"
+                        >
                             <svg
                                 width="24"
                                 height="24"
@@ -26,7 +31,7 @@ export default function Sidebar() {
                                 </g>
                             </svg>
                             Discover
-                        </a>
+                        </Link>
                         <a href="#!" className="side-link">
                             <svg
                                 width="24"
@@ -79,7 +84,10 @@ export default function Sidebar() {
 
                     <div>
                         <div className="text-gray-1 side-link mb-4">Others</div>
-                        <a href="pricing.html" className="side-link">
+                        <Link
+                            href="/prototype/subscription-plan"
+                            className="side-link"
+                        >
                             <svg
                                 width="24"
                                 height="24"
@@ -94,7 +102,7 @@ export default function Sidebar() {
                                 />
                             </svg>
                             Payments
-                        </a>
+                        </Link>
                         <a href="#!" className="side-link">
                             <svg
                                 width="24"

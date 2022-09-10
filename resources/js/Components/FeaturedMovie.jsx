@@ -34,7 +34,7 @@ export default function FeaturedMovie({
             {/* End Rating */}
             {/* Bottom Detail */}
             <div
-                className="absolute bottom-0 h-[100px] left-0 right-0 bg-gradient-to-t from-black rounded-bl-[28px]
+                className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black rounded-bl-[28px]
         rounded-br-[28px] flex justify-between items-center px-7 h-[130px]"
             >
                 <div>
