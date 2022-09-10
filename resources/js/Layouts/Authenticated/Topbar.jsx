@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-export default function Topbar() {
+export default function Topbar({ name }) {
     const [dropddownOpen, setDropdownOpen] = useState(true);
     const dropdownTarget = useRef();
 
@@ -22,7 +22,7 @@ export default function Topbar() {
             />
             <div className="flex items-center gap-4">
                 <span className="text-black text-sm font-medium">
-                    Welcome, Granola Sky
+                    Welcome, {name}
                 </span>
                 <div className="collapsible-dropdown flex flex-col gap-2 relative">
                     <div
