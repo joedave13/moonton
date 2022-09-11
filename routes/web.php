@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\MovieController as AdminMovieController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\MovieController;
 use App\Http\Controllers\User\SubscriptionPlanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +33,8 @@ Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('user.dashbo
     });
 });
 
-Route::prefix('prototype')->name('prototype.')->group(function () {
-    Route::get('subscription-plan', function () {
-        return Inertia::render('Prototype/SubscriptionPlan');
-    })->name('subscription-plan');
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboard.')->group(function () {
+    Route::resource('movie', AdminMovieController::class);
 });
 
 require __DIR__ . '/auth.php';
