@@ -4,7 +4,7 @@ import Authenticated from "@/Layouts/Authenticated/index";
 import { Head, Link } from "@inertiajs/inertia-react";
 import FlashMessage from "@/Components/FlashMessage";
 
-export default function Index({ auth, flashMessage }) {
+export default function Index({ auth, flashMessage, movies }) {
     return (
         <Authenticated auth={auth}>
             <Head>
@@ -15,9 +15,58 @@ export default function Index({ auth, flashMessage }) {
                     Create New Movie
                 </Button>
             </Link>
+
             {flashMessage?.message && (
                 <FlashMessage message={flashMessage.message} />
             )}
+
+            <table className="table-fixed w-full text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Rating</th>
+                        <th colSpan={2}>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {movies.map((movie, index) => (
+                        <tr key={movie.id}>
+                            <td>{index + 1}</td>
+                            <td>
+                                <img
+                                    src={`/storage/${movie.thumbnail}`}
+                                    className="w-32 rounded-md"
+                                    alt="Movie thumbnail"
+                                />
+                            </td>
+                            <td>{movie.title}</td>
+                            <td>{movie.category}</td>
+                            <td>{movie.rating.toFixed(1)}</td>
+                            <td>
+                                <Button
+                                    type="button"
+                                    variant="warning"
+                                    className="w-28"
+                                >
+                                    Edit
+                                </Button>
+                            </td>
+                            <td>
+                                <Button
+                                    type="button"
+                                    variant="danger"
+                                    className="w-28"
+                                >
+                                    Delete
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </Authenticated>
     );
 }
