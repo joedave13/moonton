@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/inertia-react";
 import SubscriptionDetail from "./SubscriptionDetail";
 
-export default function Sidebar() {
+export default function Sidebar({ auth }) {
     return (
         <aside className="fixed z-50 w-[300px] h-full">
             <div className="flex flex-col p-[30px] pr-0 border-r border-gray-[#F1F1F1] overflow-y-auto h-full">
@@ -161,7 +161,17 @@ export default function Sidebar() {
                         </Link>
                     </div>
 
-                    <SubscriptionDetail isPremium />
+                    {/* <SubscriptionDetail isPremium /> */}
+                    {auth.activePlan && (
+                        <SubscriptionDetail
+                            name={auth.activePlan.name}
+                            isPremium={auth.activePlan.name === "Premium"}
+                            remainingActiveDays={
+                                auth.activePlan.remainingActiveDays
+                            }
+                            activeDays={auth.activePlan.activeDays}
+                        />
+                    )}
                 </div>
             </div>
         </aside>
