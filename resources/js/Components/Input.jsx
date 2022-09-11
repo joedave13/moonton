@@ -5,7 +5,7 @@ Input.propTypes = {
     type: PropTypes.oneOf(["text", "email", "password", "number", "file"]),
     name: PropTypes.string,
     value: PropTypes.string,
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     className: PropTypes.string,
     variant: PropTypes.oneOf(["primary", "error", "primary-outline"]),
     autoComplete: PropTypes.string,
