@@ -118,7 +118,9 @@ export default function Create({ auth }) {
                     <Checkbox
                         name="is_feature"
                         value={data.is_feature}
-                        handleChange={(e) => setData(e.target.value)}
+                        handleChange={(e) =>
+                            setData("is_feature", e.target.checked)
+                        }
                     />
                 </div>
 
