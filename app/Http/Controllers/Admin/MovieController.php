@@ -26,7 +26,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Movie/Create');
     }
 
     /**
