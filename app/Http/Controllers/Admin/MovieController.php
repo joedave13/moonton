@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Movie\StoreRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
@@ -38,7 +40,17 @@ class MovieController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return $request->all();
+        $data = $request->validated();
+
+        $data['thumbnail'] = Storage::disk('public')->put('movies', $request->file('thumbnail'));
+        $data['slug'] = Str::slug($data['title']);
+
+        $movie = Movie::query()->create($data);
+
+        return redirect()->route('admin.dashboard.movie.index')->with([
+            'message' => 'Movie created successfully!',
+            'type' => 'success'
+        ]);
     }
 
     /**
