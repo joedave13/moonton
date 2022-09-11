@@ -24,7 +24,7 @@ class SubscriptionPlanController extends Controller
     public function userSubscribe(Request $request, SubscriptionPlan $subscriptionPlan)
     {
         $data = [
-            'user_id' => Auth::id(),
+            'user_id' => $request->user()->id,
             'subscription_plan_id' => $subscriptionPlan->id,
             'price' => $subscriptionPlan->price,
             'expire_date' => Carbon::now()->addMonths($subscriptionPlan->active_period_in_month),
