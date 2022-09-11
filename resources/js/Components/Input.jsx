@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 Input.propTypes = {
     type: PropTypes.oneOf(["text", "email", "password", "number", "file"]),
     name: PropTypes.string,
-    value: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.string,
+    defaultValue: PropTypes.string,
     className: PropTypes.string,
     variant: PropTypes.oneOf(["primary", "error", "primary-outline"]),
     autoComplete: PropTypes.string,

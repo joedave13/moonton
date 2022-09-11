@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class UserSubscription extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'subscription_plan_id',
+        'price',
+        'expire_date',
+        'payment_status',
+        'snap_token'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function subscriptionPlan()
+    {
+        return $this->belongsTo(SubscriptionPlan::class);
+    }
+}
