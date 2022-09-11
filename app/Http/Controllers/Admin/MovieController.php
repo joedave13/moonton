@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Movie\StoreRequest;
+use App\Http\Requests\Admin\Movie\UpdateRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -88,9 +90,24 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(UpdateRequest $request, Movie $movie)
     {
-        return $request->all();
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+            Storage::disk('public')->delete($movie->thumbnail);
+
+            $data['thumbnail'] = Storage::disk('public')->put('movies', $request->file('thumbnail'));
+        }
+
+        $data['slug'] = Str::slug($data['title']);
+
+        $movie->update($data);
+
+        return redirect()->route('admin.dashboard.movie.index')->with([
+            'message' => 'Movie updated successfully!',
+            'type' => 'success'
+        ]);
     }
 
     /**
