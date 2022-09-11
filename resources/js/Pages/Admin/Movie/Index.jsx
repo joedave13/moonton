@@ -46,13 +46,20 @@ export default function Index({ auth, flashMessage, movies }) {
                             <td>{movie.category}</td>
                             <td>{movie.rating.toFixed(1)}</td>
                             <td>
-                                <Button
-                                    type="button"
-                                    variant="warning"
-                                    className="w-28"
+                                <Link
+                                    href={route(
+                                        "admin.dashboard.movie.edit",
+                                        movie.id
+                                    )}
                                 >
-                                    Edit
-                                </Button>
+                                    <Button
+                                        type="button"
+                                        variant="warning"
+                                        className="w-28"
+                                    >
+                                        Edit
+                                    </Button>
+                                </Link>
                             </td>
                             <td>
                                 <Button
