@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -44,5 +46,24 @@ class HandleInertiaRequests extends Middleware
                 ]);
             },
         ]);
+    }
+
+    private function activePlan()
+    {
+        $activePlan = Auth::user() ? Auth::user()->lastActiveUserSubscription() : null;
+
+        if (!$activePlan) {
+            return null;
+        }
+
+        $lastDay = Carbon::parse($activePlan->updated_at)->addMonths($activePlan->subscriptionPlan->active_period_in_month);
+        $activeDays = Carbon::parse($activePlan->updated_at)->diffInDays($lastDay);
+        $remainingActiveDays = Carbon::parse($activePlan->expire_date)->diffInDays(Carbon::now());
+
+        return [
+            'name' => $activePlan->subscriptionPlan->name,
+            'remainingActiveDays' => $remainingActiveDays,
+            'activeDays' => $activeDays
+        ];
     }
 }

@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/inertia-react";
+import SubscriptionDetail from "./SubscriptionDetail";
 
 export default function Sidebar() {
     return (
@@ -138,7 +139,11 @@ export default function Sidebar() {
                             </svg>
                             Your Profile
                         </a>
-                        <a href="sign_in.html" className="side-link mb-0">
+                        <Link
+                            href={route("logout")}
+                            method="POST"
+                            className="side-link mb-0"
+                        >
                             <svg
                                 width="24"
                                 height="24"
@@ -153,23 +158,10 @@ export default function Sidebar() {
                                 />
                             </svg>
                             Logout
-                        </a>
+                        </Link>
                     </div>
 
-                    <div className="mt-auto pr-[30px]">
-                        <div className="p-5 bg-black rounded-[25px]">
-                            <img src="/icons/ic_star-rounded.svg" alt="" />
-                            <div className="text-white text-lg font-semibold mt-4 mb-8">
-                                For Greatest
-                            </div>
-                            <div className="text-white text-sm mb-2">
-                                12 of 30 hari
-                            </div>
-                            <div className="rounded-full w-full h-[6px] bg-[#333333]">
-                                <div className="rounded-full h-full w-9/12 bg-alerange"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <SubscriptionDetail isPremium />
                 </div>
             </div>
         </aside>
