@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Notification;
 use Illuminate\Support\Str;
 
 class SubscriptionPlanController extends Controller
@@ -58,6 +59,50 @@ class SubscriptionPlanController extends Controller
 
         return Inertia::render('User/SubscriptionPlan/Index', [
             'userSubscription' => $userSubscription
+        ]);
+    }
+
+    public function midtransCallback(Request $request)
+    {
+        $notification = new Notification();
+
+        $transactionStatus = $notification->transaction_status;
+        $fraud = $notification->fraud_status;
+
+        $transactionId = explode('-', $notification->order_id)[0];
+        $userSubscription = UserSubscription::query()->find($transactionId);
+
+        if ($transactionStatus == 'capture') {
+            if ($fraud == 'challenge') {
+                $userSubscription->payment_status = 'PENDING';
+            } else if ($fraud == 'accept') {
+                $userSubscription->payment_status = 'PAID';
+                $userSubscription->expire_date = Carbon::now()->addMonths((int) $userSubscription->subscriptionPlan->active_period_in_month);
+            }
+        } else if ($transactionStatus == 'cancel') {
+            if ($fraud == 'challenge') {
+                $userSubscription->payment_status = 'FAILED';
+            } else if ($fraud == 'accept') {
+                $userSubscription->payment_status = 'FAILED';
+            }
+        } else if ($transactionStatus == 'deny') {
+            $userSubscription->payment_status = 'FAILED';
+        } else if ($transactionStatus == 'settlement') {
+            $userSubscription->payment_status = 'PAID';
+            $userSubscription->expire_date = Carbon::now()->addMonths((int) $userSubscription->subscriptionPlan->active_period_in_month);
+        } else if ($transactionStatus == 'pending') {
+            $userSubscription->payment_status = 'PENDING';
+        } else if ($transactionStatus == 'expire') {
+            $userSubscription->payment_status = 'FAILED';
+        } else {
+            $userSubscription->payment_status = 'FAILED';
+        }
+
+        $userSubscription->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Payment success!'
         ]);
     }
 }
