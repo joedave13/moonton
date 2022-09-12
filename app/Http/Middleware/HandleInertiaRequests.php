@@ -40,7 +40,8 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
-                'activePlan' => $this->activePlan()
+                'activePlan' => $this->activePlan(),
+                'isAdmin' => Auth::user() ? $request->user()->hasRole('admin') : null
             ],
             'flashMessage' => [
                 'message' => Session::get('message'),

@@ -1,6 +1,6 @@
 import MenuItem from "@/Components/MenuItem";
 import { Link } from "@inertiajs/inertia-react";
-import { userMenu, userOtherMenu } from "./MenuList";
+import { adminMenu, userMenu, userOtherMenu } from "./MenuList";
 import SubscriptionDetail from "./SubscriptionDetail";
 
 export default function Sidebar({ auth }) {
@@ -11,37 +11,71 @@ export default function Sidebar({ auth }) {
                     <img src="/images/moonton.svg" alt="" />
                 </Link>
                 <div className="links flex flex-col mt-[60px] h-full gap-[50px]">
-                    <div>
-                        <div className="text-gray-1 text-sm mb-4">Menu</div>
-                        {userMenu.map((menu, index) => (
-                            <MenuItem
-                                key={`${index}-${menu.text}`}
-                                link={menu.link}
-                                icon={menu.icon}
-                                text={menu.text}
-                                isActive={
-                                    menu.link && route().current(menu.link)
-                                }
-                            />
-                        ))}
-                    </div>
+                    {/* User Role Menu */}
+                    {!auth.isAdmin && (
+                        <>
+                            <div>
+                                <div className="text-gray-1 text-sm mb-4">
+                                    Menu
+                                </div>
+                                {userMenu.map((menu, index) => (
+                                    <MenuItem
+                                        key={`${index}-${menu.text}`}
+                                        link={menu.link}
+                                        icon={menu.icon}
+                                        text={menu.text}
+                                        isActive={
+                                            menu.link &&
+                                            route().current(menu.link)
+                                        }
+                                    />
+                                ))}
+                            </div>
 
-                    <div>
-                        <div className="text-gray-1 side-link mb-4">Others</div>
-                        {userOtherMenu.map((otherMenu, index) => (
-                            <MenuItem
-                                key={`${index}-${otherMenu.name}`}
-                                link={otherMenu.link}
-                                icon={otherMenu.icon}
-                                text={otherMenu.text}
-                                isActive={
-                                    otherMenu.link &&
-                                    route().current(otherMenu.link)
-                                }
-                                method={otherMenu.method}
-                            />
-                        ))}
-                    </div>
+                            <div>
+                                <div className="text-gray-1 side-link mb-4">
+                                    Others
+                                </div>
+                                {userOtherMenu.map((otherMenu, index) => (
+                                    <MenuItem
+                                        key={`${index}-${otherMenu.name}`}
+                                        link={otherMenu.link}
+                                        icon={otherMenu.icon}
+                                        text={otherMenu.text}
+                                        isActive={
+                                            otherMenu.link &&
+                                            route().current(otherMenu.link)
+                                        }
+                                        method={otherMenu.method}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    )}
+                    {/* End User Role Menu */}
+
+                    {/* Admin Role Menu  */}
+                    {auth.isAdmin && (
+                        <div>
+                            <div className="text-gray-1 side-link mb-4">
+                                Menu
+                            </div>
+                            {adminMenu.map((otherMenu, index) => (
+                                <MenuItem
+                                    key={`${index}-${otherMenu.name}`}
+                                    link={otherMenu.link}
+                                    icon={otherMenu.icon}
+                                    text={otherMenu.text}
+                                    isActive={
+                                        otherMenu.link &&
+                                        route().current(otherMenu.link)
+                                    }
+                                    method={otherMenu.method}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    {/* End Admin Role Menu */}
 
                     {/* <SubscriptionDetail isPremium /> */}
                     {auth.activePlan && (
