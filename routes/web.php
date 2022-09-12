@@ -38,4 +38,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboar
     Route::resource('movie', AdminMovieController::class);
 });
 
+Route::post('midtrans/notification', [SubscriptionPlanController::class, 'midtransCallback']);
+
 require __DIR__ . '/auth.php';
