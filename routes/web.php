@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\MovieController as AdminMovieController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\MovieController;
 use App\Http\Controllers\User\SubscriptionPlanController;
@@ -36,6 +37,8 @@ Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('user.dashbo
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboard.')->group(function () {
     Route::put('movie/{movie}/restore', [AdminMovieController::class, 'restore'])->name('movie.restore');
     Route::resource('movie', AdminMovieController::class);
+
+    Route::resource('user', UserController::class);
 });
 
 Route::post('midtrans/notification', [SubscriptionPlanController::class, 'midtransCallback']);

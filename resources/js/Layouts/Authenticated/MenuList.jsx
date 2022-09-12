@@ -205,7 +205,7 @@ const adminMenu = [
         text: "Subscription",
     },
     {
-        link: "",
+        link: "admin.dashboard.user.index",
         icon: (
             <svg
                 width="24"

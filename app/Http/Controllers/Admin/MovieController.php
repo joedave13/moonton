@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\Movie\StoreRequest;
 use App\Http\Requests\Admin\Movie\UpdateRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
